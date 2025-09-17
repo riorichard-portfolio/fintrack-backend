@@ -16,7 +16,7 @@ type Config struct {
 	PGPassword       string `validate:"required"`
 	PGSSLMode        string `validate:"required"`
 	PGChannelBinding string `validate:"required"`
-	Port             string `validate:"required"`
+	AppPort          string `validate:"required"`
 }
 
 func mustBeSet(key string) {
@@ -65,7 +65,7 @@ func LoadConfig() *Config {
 		PGPassword:       getString("PG_PASSWORD"),
 		PGSSLMode:        getString("PG_SSLMODE"),
 		PGChannelBinding: getString("PG_CHANNELBINDING"),
-		Port:             getString("APP_PORT"),
+		AppPort:          getString("APP_PORT"),
 	}
 
 	validate := validator.New()
