@@ -4,15 +4,15 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/spf13/viper"
 	"github.com/go-playground/validator/v10"
+	"github.com/spf13/viper"
 )
 
 type Config struct {
-	PGHost           string	`validate:"required"`
-	PGPort           int	`validate:"required"`
-	PGDatabase       string	`validate:"required"`
-	PGUsername       string	`validate:"required"`
+	PGHost           string `validate:"required"`
+	PGPort           int    `validate:"required"`
+	PGDatabase       string `validate:"required"`
+	PGUsername       string `validate:"required"`
 	PGPassword       string `validate:"required"`
 	PGSSLMode        string `validate:"required"`
 	PGChannelBinding string `validate:"required"`
@@ -74,4 +74,11 @@ func LoadConfig() *Config {
 	}
 
 	return config
+}
+
+func (c *Config) DBUrl() string {
+	return fmt.Sprintf(
+		"host=%s port=%d user=%s password=%s dbname=%s sslmode=%s channel_binding=%s",
+		c.PGHost, c.PGPort, c.PGUsername, c.PGPassword, c.PGDatabase, c.PGSSLMode, c.PGChannelBinding,
+	)
 }
